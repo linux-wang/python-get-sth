@@ -33,6 +33,7 @@ set cin
 set lbr
 set encoding=utf-8
 set autowrite
+set background=dark
 
 let Tlist_Auto_Highlight_Tag=1
 let Tlist_Auto_Open=1
