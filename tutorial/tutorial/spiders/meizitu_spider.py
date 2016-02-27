@@ -10,6 +10,8 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 import os
 
+next_page_link = []
+
 def download_pic(url):
 		first_name = url[-18:]
 		path = "D:\\py\\pictures\\"+first_name
@@ -17,7 +19,7 @@ def download_pic(url):
 		if not os.path.exists(name):
 			data = urllib.urlretrieve(url, name)
 		else:
-			print "**************************pass****************************"
+			print "this pic already exists, no more download"
 			pass
 
 class meizitu_spider(scrapy.Spider):
@@ -32,14 +34,29 @@ class meizitu_spider(scrapy.Spider):
 			yield scrapy.Request(href, callback=self.parse_picture)
 
 		#how to get the next page url
-
 		pages_link = response.xpath("//div[@id='wp_page_numbers']/ul/li/a/@href").extract()
-		next_page_link = []
 		full_page_link = "http://www.meizitu.com/a/"+pages_link[-2]
-		next_page_link.append(full_page_link)
-		for url in next_page_link:
-			yield scrapy.Request(url, callback=self.parse)
+		if full_page_link not in next_page_link:
+			next_page_link.append(full_page_link)
+			yield scrapy.Request(full_page_link, callback=self.parse)
+		else:
+			print '''
+			*********************************************************************************************
+			*********************************************************************************************
+			*********************************************************************************************
+			*********************************************************************************************
+			*********************************************************************************************
+			*********************************************************************************************
 
+			I finished everthing but I can't exit by myself, so please enter 'ctrl+c' to quit, thank you
+
+			*********************************************************************************************
+			*********************************************************************************************
+			*********************************************************************************************
+			*********************************************************************************************
+			*********************************************************************************************
+			*********************************************************************************************
+			'''
 
 	def parse_picture(self, response):
 		item = MeizituSpiderItem()
