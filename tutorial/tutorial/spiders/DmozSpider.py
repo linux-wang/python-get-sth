@@ -3,7 +3,7 @@
 
 import scrapy
 from tutorial.items import DmozItem
-
+from scrapy.http import Request
 
 class DmozSpider(scrapy.Spider):
 	"""use for tutorial"""

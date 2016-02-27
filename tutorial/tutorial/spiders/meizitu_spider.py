@@ -24,27 +24,32 @@ class meizitu_spider(scrapy.Spider):
 	"""get the pictures of meizitu.com"""
 	
 	name = "meizitu_spider"		
-	start_urls = ["http://www.meizitu.com/"]
+	start_urls = ["http://www.meizitu.com/a/list_1_1.html"]
 	allow_urls = ["meizitu.com"]
 
 	def parse(self, response):
-		for href in response.selector.xpath("//h2/a/@href").extract():
-			print href              #add for test
-			yield scrapy.Request(href, callback=self.parse_next_page_picture)
+		for href in response.xpath("//ul[@class='wp-list clearfix']/li/div/div/a/@href").extract():
+			yield scrapy.Request(href, callback=self.parse_picture)
 
-	def parse_next_page_picture(self, response):
+		#how to get the next page url
+
+		pages_link = response.xpath("//div[@id='wp_page_numbers']/ul/li/a/@href").extract()
+		next_page_link = []
+		full_page_link = "http://www.meizitu.com/a/"+pages_link[-2]
+		next_page_link.append(full_page_link)
+		for url in next_page_link:
+			yield scrapy.Request(url, callback=self.parse)
+
+
+	def parse_picture(self, response):
 		item = MeizituSpiderItem()
 		item['pic_name'] = response.selector.xpath("//title/text()").extract(),
 		item['pic_url'] = response.selector.xpath("//div/p/img/@src").extract()
 		yield item		
-		for url in item['pic_url']:
-			download_pic(url)
+		#for url in item['pic_url']:
+		#	download_pic(url)
 
-		#how to get the next page url
-		#next_page = "www.meizitu.com"+response.selector.xpath("//li").extract()
-
-
-
+		
 
 
 
