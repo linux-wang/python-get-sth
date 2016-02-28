@@ -63,8 +63,8 @@ class meizitu_spider(scrapy.Spider):
 		item['pic_name'] = response.selector.xpath("//title/text()").extract(),
 		item['pic_url'] = response.selector.xpath("//div/p/img/@src").extract()
 		yield item		
-		#for url in item['pic_url']:
-		#	download_pic(url)
+		for url in item['pic_url']:
+			download_pic(url)
 
 		
 
