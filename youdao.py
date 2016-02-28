@@ -8,7 +8,6 @@ import sys
 import json
 
 
-
 def translate(url, word):
 	html = urllib2.urlopen(url+word)
 #	print "result:"+html.read()
