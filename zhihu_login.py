@@ -21,8 +21,8 @@ headers = {
 	'Accept-Language': 'zh-CN,zh;q=0.8,en;q=0.6'
 }
 
-email1 = "wsw1990wsw@qq.com"
-password1 = "wsw520wsw_"
+email1 = "your email"
+password1 = "your password"
 remember_me1 = "true"
 
 class zhihu_login():
