@@ -21,32 +21,54 @@ headers = {
 	'Accept-Language': 'zh-CN,zh;q=0.8,en;q=0.6'
 }
 
-email = "your email"
-password = "your password"
-remember_me = "true"
+email1 = "wsw1990wsw@qq.com"
+password1 = "wsw520wsw_"
+remember_me1 = "true"
 
-def get_xsrf(r):
-	soup = BeautifulSoup(r.text)
-	_xsrf = soup.find('input', attrs={'name': '_xsrf'})['value']
-	return _xsrf
+class zhihu_login():
+	"""use for signin zhihu"""
+	def __init__(self, email, password, remember_me):
+		self.email = email
+		self.password = password
+		self.remember_me = remember_me
 
-def login_zhihu(s, post_data):
-	login_url = "https://www.zhihu.com/login/email"
-	login = s.post(login_url, post_data)
-	print login.text
+	def get_session(self):
+		s = requests.session()
+		return s
+
+	def get_request(self):
+		s = self.get_session()
+		r = s.get("http://www.zhihu.com/#signin", headers=headers)
+		return r
+
+	def get_post_data(self):
+		_xsrf = self.get_xsrf()
+		post_data = {"email":self.email, "password":self.password, "_xsrf":_xsrf, "remember_me":self.remember_me}
+		return post_data
+
+	def get_xsrf(self):
+		r = self.get_request()
+		soup = BeautifulSoup(r.text)
+		_xsrf = soup.find('input', attrs={'name': '_xsrf'})['value']
+		return _xsrf
+
+	def login_zhihu(self):
+		s = self.get_session()
+		post_data = self.get_post_data()
+		login_url = "https://www.zhihu.com/login/email"
+		login = s.post(login_url, post_data)
+		print login.text
 
 
 def main():
-	s = requests.session()
-	r = s.get("http://www.zhihu.com/#signin", headers=headers)
+#	s = requests.session()
+#	r = s.get("http://www.zhihu.com/#signin", headers=headers)
 
-	_xsrf = get_xsrf(r)
+#	_xsrf = get_xsrf(r)
 
-	post_data = {"email":email, "password":password, "_xsrf":_xsrf, "remember_me":remember_me}
-
-	login_zhihu(s, post_data)
-
-
+#	post_data = {"email":email, "password":password, "_xsrf":_xsrf, "remember_me":remember_me}
+	signin = zhihu_login(email1, password1, remember_me1)
+	signin.login_zhihu()
 
 if __name__ == '__main__':
 	main()
