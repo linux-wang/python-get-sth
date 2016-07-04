@@ -1,19 +1,22 @@
-# -*- coding:utf-8 -*-
+# -*- coding:utf-8-*-
 import BeautifulSoup 
 import time
 import urllib2
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
 
-start_url = 'http://www.ruanyifeng.com/blog/2003/12/post.html'
+
+start_url = 'http://www.ruanyifeng.com/blog/2011/03/china_celebrity_gossips_pre-1949.html'
 
 
 def get_soup(url):
 	page = urllib2.urlopen(url).read()
-	soup = BeautifulSoup.BeautifulSoup(start_page)
+	soup = BeautifulSoup.BeautifulSoup(page)
 	return soup
 
 
-def get_next_url(url):
-	soup = get_soup(url)
+def get_next_url(soup):
 	next_url = soup.findAll('link', rel='next')[0].get('href')
 	return next_url
 
@@ -24,12 +27,12 @@ def save_content(url):
 	content = soup.findAll('div', id='main-content')[0]
 
 	with open('ryf.md', 'a') as f:
-		f.write(str(title))
+		f.write(title)
 		f.write('---')
 		f.write(str(content))
 		f.write('---')
 
-	next_url = get_next_url(staurl)
+	next_url = get_next_url(soup)
 
 	return next_url
 
@@ -37,12 +40,22 @@ def save_content(url):
 def get_ryf(url):
 	next_url = save_content(url)
 
+	time.sleep(5)
+
 	while next_url:
-		next_url = save_content(next_url)
+		_url = save_content(next_url)
+		if _url:
+			print _url
+			next_url = _url
+		else:
+			print 'finished'
+	
+if __name__ == '__main__':
+	get_ryf(start_url)
 
 
 # while next_url:
-# 	time.sleep(10)
+# 	time.sleep(5)
 # 	start_url = next_url
 # 	start_page = urllib2.urlopen(start_url).read()
 # 	soup = BeautifulSoup.BeautifulSoup(start_page)
