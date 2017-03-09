@@ -1,0 +1,299 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>登录</title>
+
+<script language="javascript" src="js/jquery.js"></script>
+<script language="javascript" src="js/srun_portal.js"></script>
+<script language="javascript" src="js/message.js"></script>
+</head>
+<style type="text/css">
+	* {
+		margin:0px 0px;
+		padding:0px 0px;
+		font-family:'微软雅黑','Microsoft Yahei',Arial, Helvetica, sans-serif;
+	}
+	body {
+		margin:0 auto;
+		padding:0px 0px;
+	}
+	a {
+		color:#333;
+		text-decoration: none;
+		cursor: pointer;
+		outline:none;
+	}
+	a:hover {
+		text-decoration: none;
+		color:#06F;
+	}
+	ul {
+		list-style:none;
+	}
+	.float_l {
+		float:left;
+	}
+	.float_r {
+		float:right;
+	}
+	.clearfix:before, .clearfix:after {
+		content: "";
+		display: block;
+	}
+	.clearfix:after {
+		clear: both;
+	}
+	.navbar {
+		width:96%;
+		margin:0 auto;
+		vertical-align:middle;
+		/*background-color:#1997ec;*/
+	}
+	.container {
+		background-image:url(images/bg_5.jpg) ;
+		height:500px;
+		margin:0px auto;
+		text-align:center;
+	}
+	.contain {
+		width:980px;
+		height:100%;
+		margin:0 auto;
+		padding:0px;
+	}
+	.footer {
+		width:980px;
+		margin:0 auto;
+		font-size:12px;
+		height:35px;
+		line-height:35px;
+	}
+	
+	.login {
+		padding:1.5em 1.5em 1em;
+		/*background-color:#e2eef1;
+		background-image: linear-gradient(to bottom, rgb(226, 238, 241) 50%, rgb(212, 229, 234) 100%);
+		border:1px solid #CCC;*/
+		border-radius: 4px 4px 4px 4px;
+		text-align:left;
+		font-size:.875em;
+		position:relative;
+		
+	}
+	ul.login li {
+		margin-bottom:5px;
+	}
+	/*----login tab---*/
+	.margbt { margin-bottom:4px; color:white;}
+	textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+		background-color: rgb(255, 255, 255);
+		border: 1px solid rgb(204, 204, 204);
+		box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
+		transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;
+	}
+	select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+		display: inline-block;
+		height: 24px;
+		margin-bottom: 10px;
+		font-size: 14px;
+		line-height: 24px;
+		color: rgb(36, 36, 36);
+		border-radius: 3px;
+		vertical-align: middle;
+		padding: 4px 6px;
+	}
+	textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="date"]:focus, input[type="month"]:focus, input[type="time"]:focus, input[type="week"]:focus, input[type="number"]:focus, input[type="email"]:focus, input[type="url"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="color"]:focus, .uneditable-input:focus {
+		border-color: rgba(82, 168, 236, 0.8);
+		outline: 0px none;
+		box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(82, 168, 236, 0.6);
+	}
+	.input input[type="text"], .input input[type="password"] { width:268px;}
+	input[type="checkbox"] { vertical-align:middle; margin-top:-3px;}
+
+	.login input[type='button'],input[type='submit'] {
+		width:80px;
+		border:0px solid #FFF;
+		height:35px;
+		color:#FFF;
+		font-size:14px;
+		background-image:none;
+		background-clip:border-box;
+		background-color:#b2cb49;
+		display:inline-block;
+		background-attachment:scroll;
+		background-repeat:repeat;
+		background-position-x:0%;
+		background-position-y:0%;
+		border-top-left-radius:3px;
+		border-top-right-radius:3px;
+		border-bottom-left-radius:3px;
+		border-bottom-right-radius:3px;
+		cursor:pointer;
+	}
+	
+	.login input[type='button']:hover,,input[type='submit']:hover {
+		background-color:#a2c800;
+	}
+	
+	.login a {
+		width:80px;
+		border:0px solid #FFF;
+		height:35px;
+		line-height:35px;
+		text-align:center;
+		color:#FFF;
+		font-size:14px;
+		background-image:none;
+		background-clip:border-box;
+		background-color:#3bb3e0;
+		display:inline-block;
+		background-attachment:scroll;
+		background-repeat:repeat;
+		background-position-x:0%;
+		background-position-y:0%;
+		border-top-left-radius:3px;
+		border-top-right-radius:3px;
+		border-bottom-left-radius:3px;
+		border-bottom-right-radius:3px;
+	}
+	.login a:hover {
+		background-color:#2482a5;	
+	}
+	/*----login tab---*/
+	.logo {
+		background:url(images/logo2.jpg) no-repeat;
+		height:60px;
+		margin:15px 200px;
+	}
+	.waps{ 
+		width:600px; 
+		text-align:center; 
+		line-height:28px; 
+		font-size:12px; 
+		font-family:Arial, Helvetica, sans-serif; 
+		margin-top:100px; 
+		color:white; 
+		text-align:left; 
+		border:1px solid #CCC; 
+		border-radius: 4px 4px 4px 4px; 
+		padding:5px 5px;
+	}
+	.con{ 
+		text-align:left; 
+		width:600px; 
+		margin:0px auto; 
+		background:rgba(255, 255, 255, 0.8) none repeat scroll 0 0 !important;/*实现FF背景透明，文字不透明*/
+		filter:Alpha(opacity=80); 
+		background:#fff;/*实现IE背景透明*/
+		border-radius: 4px 4px 4px 4px; 
+	}
+	.con p{ 
+		position:relative; 
+		padding:5px 10px; 
+		color:black;
+	}/*实现IE文字不透明*/
+</style>
+<body class="bottom">
+
+<div class="navbar"><div class="logo"></div>
+<span style="float: right; margin-top: -45px; margin-right:220px;font-size:22px;color:red">上网不涉密  涉密不上网</span>
+</div>
+<div class="container">
+
+	<div class="contain clearfix">
+    	<div class="float_l waps" style="margin-top:90px; width:600px; color:white; text-align:left; font-size:13px; border:1px solid #CCC; border-radius: 4px 4px 4px 4px; padding:10px 10px;">
+      		<div class="con">
+      		<p>
+      		<br/>
+<!--　　　　　　　　　　　　　关于升级后校园网计费系统试运行的通知<br/>
+　　校园网计费系统现已完成升级，即日起至4月30日开始试运行。现将计费系统试运行期间的注意事项通知如下：<br/>
+　　1、试运行期间只计流量不计费。<br/>
+　　2、用户上网的连接数从原来的2个增加到5个。<br/>
+　　3、升级后系统只保留原系统用户基本信息及帐户余额。<br/>
+　　4、升级后系统不支持原有的客户端，须下载新版客户端软件。<br/>
+　　5、开通在计算机上使用微信在线支付的功能，一卡通自助缴费功能近期恢复。<br/>
+　　6、升级后系统取消原系统中信用额度的功能，采用产品和电子钱包的功能。用户充值是充值到电子钱包，需要消费多少，由用户在自服务系统里从电子钱包转账到产品中。本次升级，用户的余额是直接转到产品中，不需要用户转账。<br/>
+　　在试运行期间，如有问题，可在工作日时间拨打我中心客服电话68914833，我们将竭诚为您服务。<br/>
+		　　通知2<a href="http://" target="_blank" style="color:#C00">通知</a><br/>-->
+        通知列表： <br/>
+　　	<a href="http://10.0.0.55:8800/notice/list/view?id=6" style="text-decoration:underline" target="_blank">《2016年无银行卡毕业生请到我中心领取退费的通知》</a><br/>
+　　	<a href="http://10.0.0.55:8800/notice/list/view?id=5" style="text-decoration:underline" target="_blank">《关于2016年夏季毕业生（含本科生、研究生）外网帐号处理安排的通知》</a><br/>
+　　	<a href="http://10.0.0.55:8800/notice/list/view?id=4" style="text-decoration:underline" target="_blank">《关于校园网计费系统启用的通知》</a><br/>
+　　	<a href="http://10.0.0.55:8800/notice/list/view?id=3" style="text-decoration:underline" target="_blank">《校园网网费微信支付演示》</a><br/>
+　　	<a href="http://10.0.0.55:8800/notice/list/view?id=1" style="text-decoration:underline" target="_blank">《关于升级后校园网计费系统试运行的通知》</a><br/>
+<br/>
+<br/>
+			</p>
+			
+			</div> 
+        </div>
+        <div class="float_r" style="margin-top: 60px;">
+            
+					
+						<form name="form2" action="srun_portal_pc.php"  method="post" onsubmit="return check1(this)">
+			<input type="hidden" name="action" value="login">
+			<input type="hidden" name="ac_id" value="1">
+			<input type="hidden" name="user_ip" value="">
+			<input type="hidden" name="nas_ip" value="">
+			<input type="hidden" name="user_mac" value="">
+			<input type="hidden" name="url" value="http://202.113.15.115" >
+						<ul class="login">
+                <li><p class="margbt">用户名/username</p>
+                    <div class="input">
+                        <input type="text" name="username" size="35" value="2220150604" >
+                    </div>
+                </li>
+                <li>
+                    <p class="margbt">密码/password</p>
+                    <div class="input">
+                        <input type="password" name="password" size="35" value="">
+                    </div>
+                </li>
+                <li><label class="margbt"><input name="save_me" title="记忆密码" type="checkbox" value="1"  /> 记住密码</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+				<label onClick="window.open('/download_client.html')" style="color:#fff;font-weight:bold;text-decoration:underline">客户端下载</label></li>
+                <li class="margin">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr valign="middle">
+                            <td width="90" height="40" align="left">
+                                <input class="a a_demo_one" type="submit" id="button" value="登录"/>
+                            </td>
+                            <td width="100" align="center">
+                                <input class="a a_demo_two" type="button" onClick="do_logout()" value="注销"/>
+                            </td>
+                            <td width="90" align="right"><a href="http://10.0.0.55:8800" target="_blank" class="a a_demo_three" id="goto_services">自服务</a>
+                            </td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr valign="middle">
+                            </td>
+                            <td width="90" height="40" align="left"><a href="https://login.bit.edu.cn/campus-account/account/register" target="_blank" class="a a_demo_three" id="goto_services">用户注册</a>
+                            </td>
+                            </td>
+                            <td width="100" align="center"><a href="http://nsc-mis.info.bit.edu.cn/selfServicePaid" target="_blank" class="a a_demo_three" id="goto_services">在线充值</a>
+                            </td>
+                            </td>
+                            <td width="90" align="right"><a href="http://nsc-mis.info.bit.edu.cn/" target="_blank" class="a a_demo_three" id="goto_services">经费卡充值</a>
+                            </td>
+                        </tr>
+                    </table>
+                </li>
+            </ul>
+			</form>
+						
+
+        </div>
+    </div>
+    
+</div>
+<div class="footer">
+    <div class="float_l" style="width:auto;">北京理工大学 Copyright © 2015 www.bit.edu.cn All rights reserved</div>
+    <div class="float_r">
+    <a href="/download_client.html" target="_blank" style="color:#FF0000"> 客户端下载 </a>&nbsp;&nbsp;|&nbsp;&nbsp;联系电话：68914833
+    <!--<div class="float_r"><a href="http://" target="_blank" style="color:#00C">有线客户端下载</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="http://.edu.cn" target="_blank">联系我们</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="http://nc.tju.edu.cn/inc/Notice/201511/P020151128844022637447.pdf" target="_blank">使用帮助</a></div>
+    <div style="text-align:center; margin:0px auto;display:none;">北京理工大学  <a href="http://www.bit.edu.cn" target="_blank">联系我们</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="http://.edu.cn/inc/Notice/201511/P020151128844022637447.pdf" style="text-decoration:underline" target="_blank">使用帮助</a></div>-->
+</div>
+</body>
+</html>
